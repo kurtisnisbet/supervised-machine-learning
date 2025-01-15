@@ -1,10 +1,10 @@
 # Depth of Anaesthesia Index Development Using Machine Learning
 
-This repository demonstrates the development of a Depth of Anaesthesia (DoA) index using supervised machine learning techniques. The project utilises EEG data to improve the benchmark BIS index, providing enhanced accuracy and reliability during surgical procedures. This work stems from a university assignment, employing advanced feature selection and predictive modelling techniques.
+This repository demonstrates the development of a Depth of Anaesthesia (DoA) index using supervised machine learning techniques. The project utilises EEG data to improve the benchmark BIS index.
 
 ### Achievements:
-- Improved prediction accuracy compared to the benchmark BIS index (MSE: 63.78 vs. 91.85; R²: 0.85 vs. 0.78).
-- Identified the most predictive EEG features (x1, x4, and x7).
+- Created a new supervised learning model that improves DoA prediction performance and accuracy (MSE: 63.78, R²: 0.85) compared to the benchmark BIS index (MSE: 91.85, R²: 0.78).
+- Identified the most predictive EEG features and removed the rest. Visualised using the elbow method.
 - Developed a robust stacked ensemble model combining Neural Networks and SVMs.
 
 <div align="center">
@@ -68,7 +68,7 @@ Example structure (first three rows) of one of the 17 datasets collected from an
 
 ## Feature Selection
 
-Feature selection using RFECV with SVM reduced the dataset to three key features: **x1, x4, and x7**, minimising noise and computational complexity while enhancing model performance. SVM was chosen for its effectiveness in high-dimensional spaces and its ability to handle non-linear relationships during feature selection.
+Feature selection using Recursive Feature Elimination with Cross-Validation (RFECV) with Support Vector Machine (SVM) reduced the dataset to three key features: **x1, x4, and x7**, minimising noise and computational complexity while enhancing model performance. SVM was chosen for its effectiveness in high-dimensional spaces and its ability to handle non-linear relationships during feature selection.
 
 **Key Code:**
 ```python
@@ -91,7 +91,7 @@ print("Selected Features:", selected_features)
 
 ## Neural Network Model
 
-A Multilayer Perceptron (MLP) Neural Network was implemented with two hidden layers of 50 and 30 neurons. It utilised the ReLU activation function and early stopping to prevent overfitting. Neural Networks were selected for their capability to capture complex, non-linear relationships within the EEG data.
+A Multilayer Perceptron Neural Network was implemented with two hidden layers of 50 and 30 neurons. It utilised the Rectivied Linear Unit (ReLU) activation function to capture the non-linear relationships in the data, and and early stopping to prevent overfitting on training data.
 
 **Key Code:**
 ```python
@@ -117,7 +117,7 @@ nn_model.fit(X_train_selected_scaled, y_train)
 
 ## Stacked Regressor
 
-The final DoA index combined Neural Network and SVM predictions through a linear regression meta-model for robust outputs. The Stacked Regressor approach was used to leverage the strengths of both models, enhancing overall accuracy and providing a more reliable prediction framework.
+The final DoA index combined Neural Network and SVM predictions through a linear regression meta-model to further increase accuracy using  derived meta-features. The Stacked Regressor approach was used to lean on the strengths of Neural Networks, SVMs, and linear regression models, with the goal to nicrease overall accuracy and providing a more reliable prediction framework than just from a Neural Network alone.
 
 **Key Code:**
 ```python
@@ -185,8 +185,10 @@ The partial dependence plot shows the relationship of each predictive variable w
 
 ## Key Findings
 
-1. RFECV-SVM reduced the features to the three most predictive, therefore increasing computation times and reducing inefficiencies in subsequent models.
-2. Neural Networks captured non-linear relationships of the selected features.
-3. Stacked Regressor used the meta-features from the neural network to create the most predicive model of DoA.
+1. RFECV-SVM reduced the features to the most predictive, therefore decreasing computation times and inefficiencies in the subsequent models, as real-time DoA index is vital during surgical procedures.
+2. The Neural Network model had better performance than the BIS index, and captured non-linear relationships of the selected features.
+3. Stacked Regressor used the meta-features from the Neural Network to create the best model of DoA.
 
-The Stacked Regressor significantly improved DoA prediction compared to the BIS index. Leveraging Neural Networks and SVMs, it demonstrated better accuracy and reduced error rates. These findings suggest the potential of machine learning in enhancing anaesthesia monitoring tools.
+## Disclaimer
+
+This work was completed for the final assignment for the course CSC6003 Machine Learning at the University of Southern Queensland. As such, the  details in this readme file been altered and simplified to ensure this information file no longer fulfills the marking criteria. Further, the full code has been widtheld, however if it can be send by request if I am contacted over GitHub.
